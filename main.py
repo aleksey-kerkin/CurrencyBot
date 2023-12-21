@@ -1,10 +1,11 @@
 import telebot
-from config import keys, TOKEN
+from config import keys, TOKEN # Тут лежит токен для бота и словарь с валютами (можно добавлять новые)
 from extensions import ConversionException, CurrencyConverter
 
 bot = telebot.TeleBot(TOKEN)
 
 
+# Обработчик команд /start и /help
 @bot.message_handler(commands=["start", "help"])
 def start_help(message: telebot.types.Message):
     bot.reply_to(message, "Чтобы приступить к работе введите команду боту в следующем формате:\n"
@@ -14,6 +15,7 @@ def start_help(message: telebot.types.Message):
                           "Доллар Юань 10")
 
 
+# Обработчик команды /values
 @bot.message_handler(commands=["values"])
 def values(message: telebot.types.Message):
     text = "Доступные валюты:"
@@ -22,6 +24,9 @@ def values(message: telebot.types.Message):
     bot.reply_to(message, text)
 
 
+# Здесь основная работа бота:
+# Обработка сообщений от пользователя, вывод результата
+# Обработчик ошибок (делит их на пользовательские и на программные)
 @bot.message_handler(content_types=["text"])
 def convert(message: telebot.types.Message):
     try:

@@ -1,12 +1,15 @@
 import requests
 import json
-from config import keys
+from config import keys  # Импортируем словарь с необходимыми валютами
 
 
+# Создаем свой класс для обработки ошибок на основе Exception
 class ConversionException(Exception):
     pass
 
 
+# Используем статичный метод для обработки ошибок
+# и обработки запросов пользователя для конвертации валют используя requests
 class CurrencyConverter:
     @staticmethod
     def get_price(quote: str, base: str, amount: str):
